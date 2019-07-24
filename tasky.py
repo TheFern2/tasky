@@ -58,7 +58,7 @@ def load_multiple_tasks():
         task_type = config[task]['task_type']
 
         if task_type == 'multiple':
-            t = MultipleTask(task, task_type, single_tasks)
+            t = MultipleTask(task, task_type, single_tasks) # TODO should load only tasks listed, not all single_tasks!
             mutiple_tasks.append(t)
 
 def load_tasks():
@@ -139,19 +139,21 @@ def main():
             perform_single_task_by_number(args.number)
         else:
             print("Enter a task number with -n argument, without exceding single task list -s")
-    if args.single and args.number is None and not args.print:
-        print("-n argument is required with -t i.e -tn 2")
+    if args.single and args.number is None and not args.print and not args.all:
+        print("-n argument is required with -s i.e -sn 2")
     if args.multiple and args.number is not None:
         if args.number < len(mutiple_tasks) and args.number >= 0:
             perform_multiple_task_by_number(args.number)
         else:
             print("Enter a task number with -n argument, without exceding single task list -s")
-    if args.multiple and args.number is None and not args.print:
+    if args.multiple and args.number is None and not args.print and not args.all:
         print("-n argument is required with -m i.e -mn 2")
     if args.all and args.single:
-        pass # do all single tasks
+        for index, s_task in enumerate(single_tasks):
+            perform_single_task_by_number(index)
     if args.all and args.multiple:
-        pass # do all multiple tasks
+        for index, m_task in enumerate(mutiple_tasks):
+            perform_multiple_task_by_number(index)
 
 if __name__ == '__main__':
     main()

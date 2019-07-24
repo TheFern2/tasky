@@ -3,6 +3,7 @@ from tasky import log
 from tasky import now
 
 # task types: copy, ping, exec, compare, zip, del, ftp...
+# TODO copy root directory or path input?
 
 # MultipleTask
 class MultipleTask(object):
